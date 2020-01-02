@@ -15,8 +15,14 @@ public class AlumnosController {
             new Alumno(2L, "Andres","Sati")
     );
 
+
+    @GetMapping
+    public List<Alumno> getAlumnos(){
+        return ALUMNOS;
+    }
+
     @GetMapping("/{id}")
-    public Alumno getAlumnos(@PathVariable Long id){
+    public Alumno getAlumno(@PathVariable Long id){
         return ALUMNOS.stream().filter(alumno->alumno.getId().equals(id)).findFirst().orElse(null);
     }
 

@@ -1,10 +1,8 @@
 package com.esteban.springsecuritypoc.security.permisos;
 
 public enum Permiso {
-    ALUMNO_READ("alumno:read"),
-    ALUMNO_WRITE("alumno:write"),
-    CURSO_READ("curso:read"),
-    CURSO_WRITE("curso:write");
+    VIEW_HOME("READHOME"),
+    EDIT_HOME("EDITHOME");
 
     private final String permiso;
 

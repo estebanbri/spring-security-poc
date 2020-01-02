@@ -4,20 +4,35 @@ package com.esteban.springsecuritypoc.security.auth.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "USUARIO")
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "USERNAME")
-    private String userName;
+
+    @Column(name = "LOGIN", unique = true, nullable = false)
+    private String login;
+
     @Column(name = "PASSWORD")
     private String password;
-    @Column(name = "ACTIVE")
-    private boolean active;
-    @Column(name = "ROLES")
-    private String roles;
+
+    @Column(name = "NOMBRE")
+    private String nombre;
+
+    @Column(name = "APELLIDO")
+    private String apellido;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "ENABLED", columnDefinition = "number(1,0)")
+    private Boolean isEnabled;
+
+    @JoinColumn(name = "ROLE_ID")
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private Rol rol;
 
     public Long getId() {
         return id;
@@ -27,12 +42,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUserName(String username) {
-        this.userName = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -43,19 +58,43 @@ public class Usuario {
         this.password = password;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getRoles() {
-        return roles;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.isEnabled = enabled;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

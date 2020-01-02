@@ -1,9 +1,11 @@
 package com.esteban.springsecuritypoc.security;
 
+import com.esteban.springsecuritypoc.security.permisos.Permiso;
 import com.esteban.springsecuritypoc.security.roles.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -34,11 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/h2-console/**").hasRole(Rol.ADMIN.name())
-                .antMatchers("/api/admin/**").hasRole(Rol.ADMIN.name())
-                .antMatchers("/api/alumnos/**").hasAnyRole(Rol.ADMIN.name(), Rol.ALUMNO.name())
-                .anyRequest()
-                .authenticated()
+                    .antMatchers("/h2-console/**").hasRole(Rol.ADMIN.name())
+                    .antMatchers("/api/admin/**").hasRole(Rol.ADMIN.name())
+                    .antMatchers(HttpMethod.GET,"/api/alumnos").hasRole(Rol.ADMIN.name())
+                    .antMatchers(HttpMethod.GET,"/api/alumnos/**").hasAnyRole(Rol.ADMIN.name())
+                    .antMatchers(HttpMethod.GET,"/api/alumnos/**").hasAnyRole(Rol.ADMIN.name(), Rol.ALUMNO.name())
+                .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable()
                 .and()
